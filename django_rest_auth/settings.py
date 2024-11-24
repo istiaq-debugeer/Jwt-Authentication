@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
+from datetime import timedelta
 import environ
 from pathlib import Path
 
@@ -86,8 +87,21 @@ DATABASES = {
     }
 }
 AUTH_USER_MODEL="account.User"
+REST_FRAMEWORK = {
+   
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+       
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+   
+}
+SIMPLE_JWT={
 
 
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+      "AUTH_HEADER_TYPES": ("Bearer",),
+}
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
@@ -105,7 +119,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
@@ -133,5 +149,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'istiaqhasan93@gmail.com'
-EMAIL_HOST_PASSWORD =  env('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_PASSWORD =  'bkuw eyqf ycup hgym' 
 DEFAULT_FROM_EMAIL = 'istiaqhasan93@gmail.com'
